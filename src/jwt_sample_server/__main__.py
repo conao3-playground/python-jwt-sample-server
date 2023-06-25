@@ -1,13 +1,14 @@
-from typing import Optional, Union
+from datetime import datetime
+from typing import Optional
+import datetime as dt
+
 import fastapi
 import fastapi.security
-import uvicorn
-import pydantic
-import passlib.context
-import datetime as dt
-from datetime import datetime
 import jose
 import jose.jwt
+import passlib.context
+import pydantic
+import uvicorn
 
 
 SECRET_KEY = 'b3e472f3f8548f73f1a957b2bfa3e0a6b1363750f4876f14913003840e952476'
