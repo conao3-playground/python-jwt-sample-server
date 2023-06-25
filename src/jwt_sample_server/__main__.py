@@ -17,13 +17,27 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 1
 
 
 fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
+    "alice": {
+        "username": "alice",
+        "full_name": "alice",
+        "email": "alice@example.com",
+        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # password: secure
         "disabled": False,
-    }
+    },
+    "bob": {
+        "username": "bob",
+        "full_name": "bob",
+        "email": "bob@example.com",
+        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # password: secure
+        "disabled": False,
+    },
+    "eve": {
+        "username": "eve",
+        "full_name": "eve",
+        "email": "eve@example.com",
+        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",  # password: secure
+        "disabled": True,
+    },
 }
 
 
