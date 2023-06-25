@@ -18,6 +18,7 @@ jwt-sample-server = "jwt_sample_server.__main__:main"
 
 [tool.poetry.group.dev.dependencies]
 uvicorn = {extras = ["standard"], version = "^0.22.0"}
+mypy = "^1.4.0"
 
 [build-system]
 requires = ["poetry-core"]
