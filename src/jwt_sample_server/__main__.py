@@ -105,6 +105,11 @@ async def get_current_active_user(current_user: User = fastapi.Depends(get_curre
     return current_user
 
 
+@app.get('/')
+async def root() -> Message:
+    return Message(message='Hello World')
+
+
 @app.post("/token")
 async def login_for_access_token(form_data: fastapi.security.OAuth2PasswordRequestForm = fastapi.Depends()) -> Token:
     user = authenticate_user(fake_users_db, form_data.username, form_data.password)
@@ -122,24 +127,14 @@ async def login_for_access_token(form_data: fastapi.security.OAuth2PasswordReque
     return Token(access_token=access_token, token_type='bearer')
 
 
-@app.get("/users/me/")
-async def read_users_me(current_user: User = fastapi.Depends(get_current_active_user)) -> User:
-    return current_user
-
-
-@app.get("/users/me/items/")
-async def read_own_items(current_user: User = fastapi.Depends(get_current_active_user)):
-    return [{"item_id": "Foo", "owner": current_user.username}]
-
-
-@app.get('/')
-async def root() -> Message:
-    return Message(message='Hello World')
-
-
 @app.get('/private')
 async def private(token: str = fastapi.Depends(get_current_active_user)) -> Message:
     return Message(message='Hello Private World')
+
+
+@app.get("/users/me")
+async def read_users_me(current_user: User = fastapi.Depends(get_current_active_user)) -> User:
+    return current_user
 
 
 def main() -> None:
