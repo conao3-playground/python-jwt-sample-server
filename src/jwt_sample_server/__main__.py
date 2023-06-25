@@ -138,7 +138,7 @@ async def root() -> Message:
 
 
 @app.get('/private')
-async def private(token: str = fastapi.Depends(oauth2_scheme)) -> Message:
+async def private(token: str = fastapi.Depends(get_current_active_user)) -> Message:
     return Message(message='Hello Private World')
 
 
