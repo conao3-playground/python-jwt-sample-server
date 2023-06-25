@@ -83,15 +83,10 @@ def authenticate_user(fake_db, username: str, password: str) -> Optional[UserInD
     return user
 
 
-def create_access_token(data: dict, expires_delta: Optional[dt.timedelta] = None) -> str:
+def create_access_token(data: dict, expires_delta: dt.timedelta) -> str:
     to_encode = data.copy()
-    if expires_delta:
-        expire = datetime.utcnow() + expires_delta
-    else:
-        expire = datetime.utcnow() + dt.timedelta(minutes=15)
-    to_encode.update({"exp": expire})
-    encoded_jwt = jose.jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+    to_encode["exp"] = datetime.utcnow() + expires_delta
+    return jose.jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
 async def get_current_user(token: str = fastapi.Depends(oauth2_scheme)) -> User:
@@ -133,10 +128,9 @@ async def login_for_access_token(form_data: fastapi.security.OAuth2PasswordReque
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = dt.timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user.username},
-        expires_delta=access_token_expires,
+        expires_delta=dt.timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
     )
     return Token(access_token=access_token, token_type='bearer')
 
